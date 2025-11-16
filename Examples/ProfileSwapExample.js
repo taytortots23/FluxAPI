@@ -4,4 +4,7 @@ const { DynamicProfile } = require("../DynamicProfile");
 let profileChanger = new DynamicProfile();
 profileChanger.debugging = true;
 
-profileChanger.constructAndSendProfileMessage(2)
+
+let id = profileChanger.findIdFromProfileName("Test1")
+
+profileChanger.constructAndSendProfileMessage(id)

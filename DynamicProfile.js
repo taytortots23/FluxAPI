@@ -9,6 +9,22 @@ class DynamicProfile{
     debugging = false;
 
 
+    //Todo: Add functionality for more than just windows
+    findIdFromProfileName(name){
+        let home = require("os").homedir();
+        let fluxDirectory = home+"/Documents/flux"
+
+        let profileJson = require(fluxDirectory+"/config/profiles.json")
+
+        for(let profiles = 0; profiles < profileJson.customProfiles.length; profiles++){
+            if(profileJson.customProfiles[profiles].name==name){
+                return profiles+1;
+            }
+        }
+        return -1;
+    }
+
+
 
     constructAndSendProfileMessage(profileId){
         if(typeof(profileId)!="number") throw "Profile ID must be a number";
