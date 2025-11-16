@@ -1,0 +1,14 @@
+{
+  "name": "fluxapi",
+  "version": "0.0.1",
+  "description": "Fan made API for the Flux keyboard and Flux Polymath",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taylor Hall",
+  "license": "MIT",
+  "dependencies": {
+    "usb": "^2.16.0"
+  }
+}
