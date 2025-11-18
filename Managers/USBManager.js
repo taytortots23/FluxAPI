@@ -1,6 +1,6 @@
 const usb = require("usb");
 
-class USBController{
+class USBManager{
     
     static instances = new Set();
 
@@ -18,7 +18,9 @@ class USBController{
     debugging = false;
 
         constructor(){
-        USBController.instances.add(this);
+        if(USBManager.instances.length!=0) throw "USBManager already exists, please use existing instance"
+
+        USBManager.instances.add(this);
         this.connectToKeyboard();
 
         process.stdin.resume();
@@ -72,10 +74,11 @@ class USBController{
         this.epIn.on("error", (e) => console.error("IN ERR:", e));
     }
 
-    constructHeader(){
+    constructHeader(message){
         this.header = Buffer.alloc(64);
 
-        this.header[0] = 0x6A;
+        // this.header[0] = 0x6A;
+        this.header[0] = message;
         this.header[1] = 0x01;
         this.header[5] = 0x04;
 
@@ -105,5 +108,5 @@ class USBController{
 }
 
 module.exports = {
-  USBController
+  USBManager
 };

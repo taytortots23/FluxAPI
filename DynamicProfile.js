@@ -1,10 +1,10 @@
-const { USBController } = require("./USBController");
+const { USBManager } = require("./Managers/USBManager");
 
 
 
 
 class DynamicProfile{
-    USBController
+    USBManager
 
     debugging = false;
 
@@ -24,30 +24,50 @@ class DynamicProfile{
         return -1;
     }
 
+    setCustomHeader(headerI){
+        if(headerI==256) return;
+        
+        const instances = [...USBManager.instances];
+
+        if (instances.length > 0) {
+            console.log("Using existing instance");
+            this.usbManager = instances[0];
+        } else {
+            console.log("Creating new instance");
+            this.usbManager = new USBManager();
+        }
+
+            let header = this.usbManager.constructHeader(headerI);
+
+            this.usbManager.send(header);
+
+
+    }
+
 
 
     constructAndSendProfileMessage(profileId){
         if(typeof(profileId)!="number") throw "Profile ID must be a number";
 
-        const instances = [...USBController.instances];
+        const instances = [...USBManager.instances];
 
         if (instances.length > 0) {
             console.log("Using existing instance");
-            this.usbController = instances[0];
+            this.usbManager = instances[0];
         } else {
             console.log("Creating new instance");
-            this.usbController = new USBController();
+            this.usbManager = new USBManager();
         }
 
         let bytes = {0:profileId}
 
-        let header = this.usbController.constructHeader();
+        let header = this.usbManager.constructHeader();
 
-        let payload = this.usbController.constructPayload(bytes);
-        this.usbController.send(header)
+        let payload = this.usbManager.constructPayload(bytes);
+        this.usbManager.send(header)
         
         setTimeout(() => {
-            this.usbController.send(payload);
+            this.usbManager.send(payload);
         }, 30);
 
     }
