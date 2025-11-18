@@ -61,7 +61,7 @@ class DynamicProfile{
 
         let bytes = {0:profileId}
 
-        let header = this.usbManager.constructHeader();
+        let header = this.usbManager.constructHeader(0x6a);
 
         let payload = this.usbManager.constructPayload(bytes);
         this.usbManager.send(header)

@@ -18,7 +18,7 @@ class USBManager{
     debugging = false;
 
         constructor(){
-        if(USBManager.instances.length!=0) throw "USBManager already exists, please use existing instance"
+        if(USBManager.instances.length!=undefined) throw "USBManager already exists, please use existing instance"
 
         USBManager.instances.add(this);
         this.connectToKeyboard();
