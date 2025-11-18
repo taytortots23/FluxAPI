@@ -50,7 +50,7 @@ class USBManager{
     }
 
     destroy() {
-        MyClass.instances.delete(this);
+        USBController.instances.delete(this);
     }
 
     connectToKeyboard(){
