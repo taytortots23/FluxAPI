@@ -24,28 +24,6 @@ class DynamicProfile{
         return -1;
     }
 
-    setCustomHeader(headerI){
-        if(headerI==256) return;
-        
-        const instances = [...USBManager.instances];
-
-        if (instances.length > 0) {
-            console.log("Using existing instance");
-            this.usbManager = instances[0];
-        } else {
-            console.log("Creating new instance");
-            this.usbManager = new USBManager();
-        }
-
-            let header = this.usbManager.constructHeader(headerI);
-
-            this.usbManager.send(header);
-
-
-    }
-
-
-
     constructAndSendProfileMessage(profileId){
         if(typeof(profileId)!="number") throw "Profile ID must be a number";
 
